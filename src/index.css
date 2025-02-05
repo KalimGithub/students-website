@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+table {
+  width: 70vw;
+  margin: auto;
+  text-align: center;
+}
+table,
+th,
+td {
+  border: 1px solid rgb(207, 200, 200);
+  border-collapse: collapse;
+  padding: 20px 30px;
+}
