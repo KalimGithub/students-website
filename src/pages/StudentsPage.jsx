@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFirebase } from "../context/Firebase";
 import Loader from "../components/Loader";
 function StudentsPage() {
   const firebase = useFirebase();
+  const navigate = useNavigate();
   const [studentsData, setStudentsData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,6 +15,12 @@ function StudentsPage() {
       setIsLoading(false);
     });
   }, []);
+  useEffect(() => {
+    if (!firebase.isLoggedIn) {
+      // navigate to home
+      navigate("/login");
+    }
+  }, [firebase, navigate]);
   return (
     <div className="w-full ms-4 my-6 items-center ">
       <h1 className="font-semibold text-xl ml-44 mb-6">Students Details:</h1>
@@ -28,8 +36,8 @@ function StudentsPage() {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody className="">
-          {studentsData &&
+        <tbody>
+          {studentsData ? (
             studentsData.map((item, index) => {
               let student =
                 item.doc.data.value.mapValue.fields.inputs.mapValue.fields;
@@ -42,13 +50,24 @@ function StudentsPage() {
                   <td>{student.section.stringValue}</td>
                   <td>{student.rollNumber.stringValue}</td>
                   <td className="flex flex-col gap-2 min-w-1">
-                    <button className="btn">view</button>
-                    <button className="btn">Edit</button>
-                    <button className="btn">delete</button>
+                    <button className="btn cursor-pointer hover:text-blue-500">
+                      view
+                    </button>
+                    <button className="btn cursor-pointer hover:text-blue-500">
+                      Edit
+                    </button>
+                    <button className="btn cursor-pointer hover:text-blue-500">
+                      delete
+                    </button>
                   </td>
                 </tr>
               );
-            })}
+            })
+          ) : (
+            <div className="w-full h-full text-center flex items-center justify-center m-auto">
+              <Loader />
+            </div>
+          )}
         </tbody>
       </table>
     </div>

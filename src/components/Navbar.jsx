@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useFirebase } from "../context/Firebase";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [inputs, setInputs] = useState({});
@@ -22,17 +23,18 @@ function Navbar() {
   };
   return (
     <div className="w-full h-[4rem] bg-blue-500 flex justify-between text-white px-6 py-4 items-center">
-      <h3>Navbar</h3>
-      <div className="flex gap-2">
-        <p>Contact</p>
+      <h3>My App</h3>
+      <div className="flex gap-4">
+        <button
+          className="btn cursor-pointer hover:opacity-[0.8]"
+          onClick={() => document.getElementById("my_modal_1").showModal()}
+        >
+          Add Student
+        </button>
+        <Link className="cursor-pointer hover:opacity-[0.8]" to={"/"}>
+          Dashboard
+        </Link>
         <div>
-          <button
-            className="btn"
-            onClick={() => document.getElementById("my_modal_1").showModal()}
-          >
-            Add Student
-          </button>
-
           {/* Modal when clicked on add student */}
           <dialog id="my_modal_1" className="modal w-[35vw] m-auto px-4 py-6">
             <div className="modal-box w-full">
