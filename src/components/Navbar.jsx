@@ -12,7 +12,7 @@ function Navbar() {
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-
+  const isLoggedIn = firebase.isLoggedIn;
   const handleSubmit = async (e) => {
     // e.preventDefault();
     // console.log("inputs", inputs);
@@ -27,7 +27,11 @@ function Navbar() {
       <div className="flex gap-4">
         <button
           className="btn cursor-pointer hover:opacity-[0.8]"
-          onClick={() => document.getElementById("my_modal_1").showModal()}
+          onClick={() =>
+            isLoggedIn
+              ? document.getElementById("my_modal_1").showModal()
+              : alert("User need to login first")
+          }
         >
           Add Student
         </button>

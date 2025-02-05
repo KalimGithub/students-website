@@ -39,6 +39,7 @@ function LoginPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="px-4 py-2 border rounded outline-0"
+          required
         />
         <label>Password:</label>
         <input
@@ -47,6 +48,7 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="px-4 py-2 border w-full rounded outline-0"
+          required
         />
         <button
           type="submit"
